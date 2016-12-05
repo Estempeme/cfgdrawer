@@ -19,9 +19,10 @@ public class Graph {
 	
 	// A pointer to all of the nodes.
 	public Instruction firstinst;
-	private String type = "ps";
-	private String path = "C:/Users/Misi HP/Documents/Iskola/Humboldt/programok/cfgdrawer/Semesterprojekt_Uebung/graph."+type;
-	
+	private String type = "png";
+	//private String path = "C:/Users/Misi HP/Documents/Iskola/Humboldt/programok/cfgdrawer/Semesterprojekt_Uebung/graph."+type;
+	private String path = "/home/jan/Dropbox/SemesterprojectBugMining/workspace/cfgdrawer/Semesterprojekt_Uebung/graph.pnggraph."+type;
+
 	public Graph() {
 		this.firstinst = null;
 	}
