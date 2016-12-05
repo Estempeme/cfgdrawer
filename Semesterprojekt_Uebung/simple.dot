@@ -1,0 +1,9 @@
+digraph G {
+This -> is;
+is -> a;
+a -> nice;
+nice -> "Graph";
+"This is a node in..." -> a [label = "This edge is labeled."];
+is -> "... also a node" [label="(A written edge.)"];
+}
+// Okay, so  after the "}" nothing matters. You can freely write notes here.
