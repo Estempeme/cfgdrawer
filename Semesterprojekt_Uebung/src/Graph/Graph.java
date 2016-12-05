@@ -19,9 +19,8 @@ public class Graph {
 	
 	// A pointer to all of the nodes.
 	public Instruction firstinst;
-	private String type = "png";
-	//private String path = "C:/Users/Misi HP/Documents/Iskola/Humboldt/programok/cfgdrawer/Semesterprojekt_Uebung/graph."+type;
-	private String path = "/home/jan/Dropbox/SemesterprojectBugMining/workspace/cfgdrawer/Semesterprojekt_Uebung/graph.pnggraph."+type;
+	private String type = Settings.getType();
+	private String path = Settings.getPath();
 
 	public Graph() {
 		this.firstinst = null;
@@ -164,34 +163,5 @@ public class Graph {
 		
 		frame.setVisible(true);
 	}
-	
-	public static void main(String[] args) {
-		Graph g = new Graph();
-		
-		/*g.addEdge(5, 1);
-		g.addEdge(1, 2);
-		g.addEdge(1, 3);
-		g.addEdge(2, 4);
-		g.addEdge(1, 2);
-		g.addEdge(3, 1);
-		g.addEdge(1, 2);
-		g.addEdge(2, 4);*/
-		for (int i = 0; i < 1000; i++) { //Extrem case.
-			g.addEdge(i, (i+1));
-		}
-		/*int n = 50;
-		for (int i = 0; i < n; i++) {
-			int a = (int) (Math.random()*n);
-			int b = (int) (Math.random()*n);
-			g.addEdge(a, b);
-		}*/
-		/*for (int i = 0; i < 10; i++) {
-			for (int j = i; j < 10; j++) {
-				g.addEdge(i, j);
-			}
-		}*/
-		g.createPicture();
-	}
-	
 
 }
