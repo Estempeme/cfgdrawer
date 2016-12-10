@@ -4,8 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -129,11 +129,11 @@ public class Graph {
 		}
 
 		gv.addln(gv.end_graph());
-		//System.out.println(gv.getDotSource());
+		System.out.println(gv.getDotSource());
 		
 		try{
-		    PrintWriter writer = new PrintWriter("graph.dot", "UTF-8");
-		    writer.print(gv.getDotSource());
+		    FileWriter writer = new FileWriter("graph.dot");
+		    writer.write(gv.getDotSource());
 		    writer.close();
 		} catch (IOException e) {
 		   System.out.println("Error during creation of dot file.");
