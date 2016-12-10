@@ -12,29 +12,40 @@ public class Settings {
 		Settings.type = type;
 	}
 
+	public static String getPicturePath() {
+		return picturePath;
+	}
+	
 	public static String getPath() {
-		return path;
+		return workPath;
 	}
+	
+	private static String workPath;  // working directory
+	private static String picturePath;
 
-	private static String path; // working directory
-
+	public static void setPicturePath(String path) {
+		Settings.picturePath = path;
+	}
+	
 	public static void setPath(String path) {
-		Settings.path = path;
+		Settings.workPath = path;
 	}
-
-	private static final String jan = "/home/jan/Dropbox/SemesterprojectBugMining/workspace/cfgdrawer/Semesterprojekt_Uebung/graph.pnggraph."
-			+ type;
-
-	private static final String mihaly = "C:/Users/Misi HP/Documents/Iskola/Humboldt/programok/cfgdrawer/Semesterprojekt_Uebung/graph."
-			+ type;
+	
+	private static final String pathJan = "/home/jan/Dropbox/SemesterprojectBugMining/workspace/cfgdrawer/Semesterprojekt_Uebung";
+	private static final String picturePathJan = pathJan + "/graph.pnggraph." + type;
+	
+	private static final String pathMihaly = "C:/Users/Misi HP/Documents/Iskola/Humboldt/programok/cfgdrawer/Semesterprojekt_Uebung";
+	private static final String picturePathMihaly = pathMihaly + "/graph." + type;
 
 	/*
 	 * main for testing, set your path, then a graph is drawn
 	 */
 	public static void main(String[] args) {
-
-		setPath(jan);
-		// setPath(mihaly);
+		
+		setPath(pathJan);
+		setPath(pathMihaly);
+		setPicturePath(picturePathJan);
+		setPicturePath(picturePathMihaly);
 
 		setType("png");// only type that works until now
 
@@ -61,7 +72,7 @@ public class Settings {
 		 * for (int i = 0; i < 10; i++) { for (int j = i; j < 10; j++) {
 		 * g.addEdge(i, j); } }
 		 */
-		g.createPicture();
+		g.pictureToScreen(g.dotToImage(g.saveAsDot()));
 	}
 
 }
