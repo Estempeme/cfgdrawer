@@ -1,5 +1,9 @@
 package Graph;
 
+import java.io.IOException;
+import java.io.PipedReader;
+import java.io.PipedWriter;
+
 public class Settings {
 
 	private static String type; // outputfile typ, only png works
@@ -48,9 +52,16 @@ public class Settings {
 		setPicturePath(picturePathMihaly);
 
 		setType("png");// only type that works until now
+		
+		// If we test the Threads or not. They still require some work...
+		boolean decision = false; 
+		
+		if (decision) {
+			testThreads();
+			return;
+		}
 
 		Graph g = new Graph();
-
 		g.addEdge(5, 1);
 		g.addEdge(1, 2);
 		g.addEdge(1, 3);
@@ -72,6 +83,32 @@ public class Settings {
 		 * for (int i = 0; i < 10; i++) { for (int j = i; j < 10; j++) {
 		 * g.addEdge(i, j); } }
 		 */
+		g.pictureToScreen(g.dotToImage(g.saveAsDot()));
+	}
+	
+	// A function to test the new Threads, so that we don't spam the main function.
+	private static void testThreads() {
+		Graph g = new Graph();
+		
+		//Trying the new threads for input.
+		PipedWriter pw = new PipedWriter();
+		PipedReader pr;
+		try {
+			pr = new PipedReader(pw);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
+		pipeInputThread pit = new pipeInputThread(pw);
+		pipeGraphThread pgt = new pipeGraphThread(pr);
+		pit.start();
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		pgt.start();
+		g = pgt.getGraph();
 		g.pictureToScreen(g.dotToImage(g.saveAsDot()));
 	}
 
