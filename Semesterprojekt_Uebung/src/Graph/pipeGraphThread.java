@@ -18,13 +18,24 @@ public class pipeGraphThread extends Thread {
 	public void run() {
 		g = new Graph();
 		int input;
+		System.out.println("Thread awaken.");
 		try {
+			//We must use a tick-tack measure to determine wether the information
+			// just arrived is the incoming or outgoing end of the edge.
+			boolean pair = false; 
+			int from = 0, to = 0;
 			while ((input = pr.read()) != -1){
-				int from = input;
-				System.out.print(Integer.toString(input)+" ");
-				if ((input = pr.read()) != -1) return;
-				int to = input;
-				//System.out.println(Integer.toString(input));
+				if (!pair) {
+					from = input;
+					//System.out.print(Integer.toString(input)+" ");
+				} else {
+					to = input;
+					//System.out.println(Integer.toString(input));
+				}
+				/*if ((input = pr.read()) != -1) {
+					System.out.println("Pipeline ended too early. :(");
+					return;
+				}*/
 				g.addEdge(from, to);
 				//System.out.print((char) input);
 			}

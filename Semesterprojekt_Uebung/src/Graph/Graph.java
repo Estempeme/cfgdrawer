@@ -3,9 +3,12 @@ package Graph;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -132,7 +135,9 @@ public class Graph {
 		System.out.println(gv.getDotSource());
 		
 		try{
-		    FileWriter writer = new FileWriter("graph.dot");
+		    BufferedWriter writer = new BufferedWriter(
+		    		new OutputStreamWriter(new FileOutputStream("graph.dot"), "utf-8")
+		    );
 		    writer.write(gv.getDotSource());
 		    writer.close();
 		} catch (IOException e) {

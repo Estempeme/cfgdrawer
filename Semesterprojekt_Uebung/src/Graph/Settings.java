@@ -36,7 +36,7 @@ public class Settings {
 	}
 	
 	private static final String pathJan = "/home/jan/Dropbox/SemesterprojectBugMining/workspace/cfgdrawer/Semesterprojekt_Uebung";
-	private static final String picturePathJan = pathJan + "/graph.pnggraph." + type;
+	private static final String picturePathJan = pathJan + "/graph." + type;
 	
 	private static final String pathMihaly = "C:/Users/Misi HP/Documents/Iskola/Humboldt/programok/cfgdrawer/Semesterprojekt_Uebung";
 	private static final String picturePathMihaly = pathMihaly + "/graph." + type;
@@ -95,6 +95,7 @@ public class Settings {
 		PipedReader pr;
 		try {
 			pr = new PipedReader(pw);
+			//System.out.println("Pipe succesfully created.");
 		} catch (IOException e) {
 			e.printStackTrace();
 			return;
@@ -105,10 +106,14 @@ public class Settings {
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
+			System.out.println("Errorerror!");
 			e.printStackTrace();
 		}
-		pgt.start();
+		System.out.println("PGT starts immediately.");
+		pgt.run();
+		System.out.println("PGT started.");
 		g = pgt.getGraph();
+		System.out.println("Graph received.");
 		g.pictureToScreen(g.dotToImage(g.saveAsDot()));
 	}
 
