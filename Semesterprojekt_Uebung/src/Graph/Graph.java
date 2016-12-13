@@ -140,7 +140,7 @@ public class Graph {
 		    BufferedWriter writer = new BufferedWriter(
 		    		new OutputStreamWriter(new FileOutputStream("graph.dot"), "utf-8")
 		    );*/
-		try{System.out.println( path+"/graph.dot");
+		try{
 		    FileWriter writer = new FileWriter(path+"/graph.dot");
 		    writer.write(gv.getDotSource());
 		    writer.close();
@@ -202,7 +202,7 @@ public class Graph {
 		gv.readSource(input);
 
 		//Write graph to picture file.
-		File out = new File(input);
+		File out = new File(path+"/graph."+type);
 		gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type, "dot"), out);
 		
 		// Put picture to screen.

@@ -30,13 +30,15 @@ public class pipeGraphThread extends Thread {
 					//System.out.print(Integer.toString(input)+" ");
 				} else {
 					to = input;
+					g.addEdge(from, to);
 					//System.out.println(Integer.toString(input));
 				}
 				/*if ((input = pr.read()) != -1) {
 					System.out.println("Pipeline ended too early. :(");
 					return;
 				}*/
-				g.addEdge(from, to);
+				
+				pair = !pair;
 				//System.out.print((char) input);
 			}
 			pr.close();

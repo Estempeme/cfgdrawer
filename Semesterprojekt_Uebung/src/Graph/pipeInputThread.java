@@ -20,12 +20,13 @@ public class pipeInputThread extends Thread {
 			System.out.println("Writing information.");
 			/*pw.write ("121314");
 			pw.write ("2535");*/
-			pw.write("1");
+			/*pw.write("a");
 			pw.write("2");
-			pw.write("1");
+			pw.write("a");
 			pw.write("3");
-			pw.write("1");
-			pw.write("4");
+			pw.write("a");
+			pw.write("4");*/
+			pw.write("121314894123579513579651387632135864");
 			pw.close ();
 		} catch (IOException e) {
 			e.printStackTrace();
