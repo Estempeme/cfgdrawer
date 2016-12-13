@@ -18,16 +18,19 @@ public class pipeGraphThread extends Thread {
 	public void run() {
 		g = new Graph();
 		int input;
-		System.out.println("Thread awaken.");
+		System.out.println("pipeGraphThread is reading input...");
 		try {
 			// reads the input ascii characterwise, expected format
 			// "number-number;" other characters are ignored
 			int from = 0, to = 0;
 
+			// to differentiate if we are reading the numbers of the first or
+			// second note
 			boolean firstNode = true;
 			while ((input = pr.read()) != -1) {
 				switch (input) {
-				case 48: // the numbers
+				// the numbers
+				case 48:
 				case 49:
 				case 50:
 				case 51:
@@ -37,26 +40,33 @@ public class pipeGraphThread extends Thread {
 				case 55:
 				case 56:
 				case 57:
-					// as long as numbers are read the input is
-					// a node
+					// as long as numbers are read the input is a node
 					if (firstNode) {
 						from = from * 10 + (input - 48);
 					} else {
 						to = to * 10 + (input - 48);
 					}
 					break;
-				case 45: // - marks the edge between first and second node
+
+				case 45:
+					// - marks the edge between first and second node
 					firstNode = false;
 					break;
-				case 59: // ; marks the end of
+				case 59:
+					// ; marks the end of
 					g.addEdge(from, to);
 					firstNode = true;
 					from = 0;
 					to = 0;
 					break;
-				default:	//Error handling
-					System.out
-							.println("unexpected character: " + (char)input + " from input stream is ignored");
+				default:
+					// Error handling
+					System.out.print("unexpected character: " + (char) input
+							+ " from input stream is ignored after reading ");
+					if (firstNode)
+						System.out.println(from);
+					else
+						System.out.println(to);
 				}
 			}
 
