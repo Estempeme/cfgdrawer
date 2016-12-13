@@ -131,8 +131,8 @@ public class Graph {
 		gv.addln(gv.end_graph());
 		System.out.println(gv.getDotSource());
 		
-		try{
-		    FileWriter writer = new FileWriter("graph.dot");
+		try{System.out.println( path+"/graph.dot");
+		    FileWriter writer = new FileWriter(path+"/graph.dot");
 		    writer.write(gv.getDotSource());
 		    writer.close();
 		} catch (IOException e) {
