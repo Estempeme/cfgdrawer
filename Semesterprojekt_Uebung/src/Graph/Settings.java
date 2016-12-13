@@ -5,8 +5,9 @@ import java.io.PipedReader;
 import java.io.PipedWriter;
 
 public class Settings {
-
-	private static String type; // outputfile typ, only png works
+	// outputfile typ, eg png, pdf, ps
+	// png is displayed with eclips, pdf and ps with external viewer
+	private static String type;
 
 	public static String getType() {
 		return type;
@@ -16,46 +17,64 @@ public class Settings {
 		Settings.type = type;
 	}
 
+	private static String filename;
+
+	public static String getFilename() {
+		return filename;
+	}
+
+	public static void setFilename(String filename) {
+		Settings.filename = filename;
+	}
+
 	public static String getPicturePath() {
 		return picturePath;
 	}
-	
+
 	public static String getPath() {
 		return workPath;
 	}
-	
-	private static String workPath;  // working directory
+
+	private static String workPath; // working directory
 	private static String picturePath;
 
 	public static void setPicturePath(String path) {
 		Settings.picturePath = path;
 	}
-	
+
 	public static void setPath(String path) {
 		Settings.workPath = path;
 	}
-	
-	private static final String pathJan = "/home/jan/Dropbox/SemesterprojectBugMining/workspace/cfgdrawer/Semesterprojekt_Uebung";
-	private static final String picturePathJan = pathJan + "/graph." + type;
-	
-	private static final String pathMihaly = "C:/Users/Misi HP/Documents/Iskola/Humboldt/programok/cfgdrawer/Semesterprojekt_Uebung";
-	private static final String picturePathMihaly = pathMihaly + "/graph." + type;
+
+	private static final String pathJan = "/home/jan/Dropbox/SemesterprojectBugMining/workspace/cfgdrawer/Semesterprojekt_Uebung/";
+	private static final String picturePathJan = pathJan + filename + "."
+			+ type;
+
+	private static final String pathMihaly = "C:/Users/Misi HP/Documents/Iskola/Humboldt/programok/cfgdrawer/Semesterprojekt_Uebung/";
+	private static final String picturePathMihaly = pathMihaly + filename + "."
+			+ type;
 
 	/*
-	 * main for testing, set your path, then a graph is drawn
+	 * main for testing, set your path, set your filename, set your export type,
+	 * then a graph is drawn
 	 */
 	public static void main(String[] args) {
-		
-		setPath(pathJan);
-		setPath(pathMihaly);
-		setPicturePath(picturePathJan);
-		setPicturePath(picturePathMihaly);
 
-		setType("pdf");// only type that works until now
-		
+		setPath(pathJan);
+		// setPath(pathMihaly);
+		setPicturePath(picturePathJan);
+		// setPicturePath(picturePathMihaly);
+
+		// outputfile typ, eg png, pdf, ps
+		// png is displayed with eclips, pdf and ps with external viewer
+		setType("png");
+
+		// chose the name of your file
+		setFilename("graph");
+
 		// If we test the Threads or not. They still require some work...
-		boolean decision = true; 
-		
+		boolean decision = true;
+
 		if (decision) {
 			testThreads();
 			return;
@@ -63,13 +82,7 @@ public class Settings {
 
 		Graph g = new Graph();
 		g.addEdge(5, 1);
-		g.addEdge(1, 2);
-		g.addEdge(1, 3);
-		g.addEdge(2, 4);
-		g.addEdge(1, 2);
-		g.addEdge(3, 1);
-		g.addEdge(1, 2);
-		g.addEdge(2, 4);
+
 		/*
 		 * for (int i = 0; i < 1000; i++) { //Extrem case. g.addEdge(i, (i+1));
 		 * }
@@ -85,17 +98,18 @@ public class Settings {
 		 */
 		g.pictureToScreen(g.dotToImage(g.saveAsDot()));
 	}
-	
-	// A function to test the new Threads, so that we don't spam the main function.
+
+	// A function to test the new Threads, so that we don't spam the main
+	// function.
 	private static void testThreads() {
 		Graph g = new Graph();
-		
-		//Trying the new threads for input.
+
+		// Trying the new threads for input.
 		PipedWriter pw = new PipedWriter();
 		PipedReader pr;
 		try {
 			pr = new PipedReader(pw);
-			//System.out.println("Pipe succesfully created.");
+			// System.out.println("Pipe successfully created.");
 		} catch (IOException e) {
 			e.printStackTrace();
 			return;

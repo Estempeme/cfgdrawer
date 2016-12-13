@@ -4,13 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Desktop;
 import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -25,9 +21,13 @@ public class Graph {
 
 	// A pointer to all of the nodes.
 	public Instruction firstinst;
-	
-	private String type = Settings.getType(); // Type of the picture file.
-	private String path = Settings.getPath(); // A general path to the working library.
+
+	private String filename = Settings.getFilename(); // name of your output
+														// files
+	private String type = Settings.getType(); // Type of the picture file eg
+												// png, pdf.
+	private String path = Settings.getPath(); // A general path to the working
+												// directory.
 
 	public Graph() {
 		this.firstinst = null;
@@ -48,7 +48,7 @@ public class Graph {
 				if (debugprint)
 					System.out.println("Adding new edge " + to
 							+ " to new instr " + from);
-				/* instr = this. */addInstr(from, to);
+				addInstr(from, to);
 				return;
 			} else { // The node exists, add edge to it.
 				if (debugprint)
@@ -64,7 +64,6 @@ public class Graph {
 	 * it, if it exists. Otherways returns null.
 	 */
 	public Instruction searchInstr(int id) {
-		// System.out.println("The ID you are looking for is: " + id);
 		if (firstinst == null)
 			return null;
 		Instruction instr = firstinst;
@@ -81,7 +80,8 @@ public class Graph {
 	/*
 	 * Adds a new instruction (node) to the graph.
 	 * 
-	 * @param id The id of the instruction. 
+	 * @param id The id of the instruction.
+	 * 
 	 * @param to The id of the instruction to which the edge leads.
 	 */
 	public Instruction addInstr(int id, int to) {
@@ -108,7 +108,7 @@ public class Graph {
 	// Creates a dot file from the graph and saves it.
 	// Return the path of the saved file as String.
 	public String saveAsDot() {
-		// System.out.println("Drawing Graph.");
+
 		GraphViz gv = new GraphViz();
 		gv.addln(gv.start_graph());
 		Instruction inst = firstinst;
@@ -121,12 +121,12 @@ public class Graph {
 			// on every instruction vertical iteration through all the edges
 			// from that instr.
 			while (edge != null) {
-				int edgeTo = edge.getID(); // The instruction to which the edge leads.
-				// String error = inst.getError();
+				int edgeTo = edge.getID(); // The instruction to which the edge
+											// leads.
 				int label = edge.getNum();
 				String out = Integer.toString(id) + " -> " + edgeTo
 						+ " [label=\"" + label + "\"];";
-				// System.out.println(out);
+
 				gv.addln(out);
 				edge = edge.getNext();
 			}
@@ -135,31 +135,31 @@ public class Graph {
 
 		gv.addln(gv.end_graph());
 		System.out.println(gv.getDotSource());
-		
+
 		/*
-		try{
-		    BufferedWriter writer = new BufferedWriter(
-		    		new OutputStreamWriter(new FileOutputStream("graph.dot"), "utf-8")
-		    );*/
-		try{
-		    FileWriter writer = new FileWriter(path+"/graph.dot");
-		    writer.write(gv.getDotSource());
-		    writer.close();
+		 * try{ BufferedWriter writer = new BufferedWriter( new
+		 * OutputStreamWriter(new FileOutputStream("graph.dot"), "utf-8") );
+		 */
+		try {
+			FileWriter writer = new FileWriter(path + filename + ".dot");
+			writer.write(gv.getDotSource());
+			writer.close();
 		} catch (IOException e) {
-		   System.out.println("Error during creation of dot file.");
-		   e.printStackTrace();
+			System.out.println("Error during creation of dot file.");
+			e.printStackTrace();
 		}
-		return path+"/graph.dot";
+		return path + filename + ".dot";
 	}
 
 	// Draw a picture on the screen, with scrollbars.
 	public void pictureToScreen(String sourcePath) {
-		// If the file format is not png, we call an extern program to open the picture.
+		// If the file format is not png, we call an extern program to open the
+		// picture.
 		if (!type.equals("png")) {
 			pdfToPicture(sourcePath);
 			return;
 		}
-		
+
 		File out = new File(sourcePath);
 		BufferedImage img = null;
 		try {
@@ -167,10 +167,10 @@ public class Graph {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		JFrame frame = new JFrame("And there was the Graph...");
+
+		JFrame frame = new JFrame("And here is  the Graph...");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
+
 		if (img == null) {
 			// here some error message
 			frame.setVisible(true);
@@ -193,9 +193,11 @@ public class Graph {
 		lbl.add(vbar, BorderLayout.EAST);
 
 		JScrollPane scrollPane = new JScrollPane(lbl);
-		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		//scrollPane.setBounds(50, 30, 300, 50);
+		scrollPane
+				.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane
+				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		// scrollPane.setBounds(50, 30, 300, 50);
 
 		frame.add(scrollPane);
 		frame.pack(); // sizes the window to the size of the picture
@@ -204,35 +206,34 @@ public class Graph {
 
 		frame.setVisible(true);
 	}
-	
-	
+
 	private void pdfToPicture(String sourcePath) {
 		try {
-            File pdfFile = new File(sourcePath);
-            Desktop.getDesktop().open(pdfFile);
-        } catch (IOException ex) {
-        	System.out.println("No application found for reading pdf.");
-            // no application registered for PDFs
-        }
-		
+			File pdfFile = new File(sourcePath);
+			Desktop.getDesktop().open(pdfFile);
+		} catch (IOException ex) {
+			System.out.println("No application found for reading pdf.");
+			// no application registered for PDFs
+		}
+
 	}
 
 	// Creates a BufferedImage from a given dot file.
 	// @param input String representation of the path of the file.
 	// If the parameter is null, reads the default input.
 	public String dotToImage(String input) {
-		
+
 		// Make a new Graph and create it from the input.
 		GraphViz gv = new GraphViz();
-		if (input == null) input = path+"/graph.dot";
+		if (input == null)
+			input = path + filename + ".dot";
 		gv.readSource(input);
 
-		//Write graph to picture file.
-		File out = new File(path+"/graph."+type);
+		// Write graph to picture file.
+		File out = new File(path + filename + "." + type);
 		gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type, "dot"), out);
-		
-		
-		return path+"/graph."+type;
+
+		return path + filename + "." + type;
 	}
 
 }

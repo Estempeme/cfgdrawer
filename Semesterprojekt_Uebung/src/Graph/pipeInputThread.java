@@ -12,14 +12,15 @@ public class pipeInputThread extends Thread {
 	
 	public pipeInputThread(PipedWriter pw) {
 		this.pw = pw;
-	}
+	} 
 	
 	
 	public void run() {
 		try {
 			System.out.println("Writing information.");
-			pw.write ("1-21;2-21;");
-			pw.write("2-2345;");
+			pw.write ("t1-21;2-21;");
+			pw.write("2-  2345;");
+			pw.write("2  -2345;");
 			//pw.write ("2-3");
 			pw.close ();
 		} catch (IOException e) {
