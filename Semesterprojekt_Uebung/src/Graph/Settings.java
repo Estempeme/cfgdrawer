@@ -54,7 +54,7 @@ public class Settings {
 		setType("png");// only type that works until now
 		
 		// If we test the Threads or not. They still require some work...
-		boolean decision = false; 
+		boolean decision = true; 
 		
 		if (decision) {
 			testThreads();
