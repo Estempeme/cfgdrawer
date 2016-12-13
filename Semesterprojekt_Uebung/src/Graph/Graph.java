@@ -1,6 +1,7 @@
 package Graph;
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
@@ -152,7 +153,21 @@ public class Graph {
 	}
 
 	// Draw a picture on the screen, with scrollbars.
-	public void pictureToScreen(BufferedImage img) {
+	public void pictureToScreen(String sourcePath) {
+		// If the file format is not png, we call an extern program to open the picture.
+		if (!type.equals("png")) {
+			pdfToPicture(sourcePath);
+			return;
+		}
+		
+		File out = new File(sourcePath);
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(out);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		JFrame frame = new JFrame("And there was the Graph...");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
@@ -191,10 +206,21 @@ public class Graph {
 	}
 	
 	
+	private void pdfToPicture(String sourcePath) {
+		try {
+            File pdfFile = new File(sourcePath);
+            Desktop.getDesktop().open(pdfFile);
+        } catch (IOException ex) {
+        	System.out.println("No application found for reading pdf.");
+            // no application registered for PDFs
+        }
+		
+	}
+
 	// Creates a BufferedImage from a given dot file.
 	// @param input String representation of the path of the file.
 	// If the parameter is null, reads the default input.
-	public BufferedImage dotToImage(String input) {
+	public String dotToImage(String input) {
 		
 		// Make a new Graph and create it from the input.
 		GraphViz gv = new GraphViz();
@@ -205,15 +231,8 @@ public class Graph {
 		File out = new File(path+"/graph."+type);
 		gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type, "dot"), out);
 		
-		// Put picture to screen.
-		BufferedImage img = null;
-		try {
-			img = ImageIO.read(out);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return img;
-		//pictureToScreen(img);
+		
+		return path+"/graph."+type;
 	}
 
 }
