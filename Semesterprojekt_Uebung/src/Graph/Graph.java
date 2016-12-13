@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -134,10 +135,13 @@ public class Graph {
 		gv.addln(gv.end_graph());
 		System.out.println(gv.getDotSource());
 		
+		/*
 		try{
 		    BufferedWriter writer = new BufferedWriter(
 		    		new OutputStreamWriter(new FileOutputStream("graph.dot"), "utf-8")
-		    );
+		    );*/
+		try{System.out.println( path+"/graph.dot");
+		    FileWriter writer = new FileWriter(path+"/graph.dot");
 		    writer.write(gv.getDotSource());
 		    writer.close();
 		} catch (IOException e) {
