@@ -3,16 +3,20 @@
  */
 package gui;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JList;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPopupMenu;
+
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -27,32 +31,45 @@ public class Startpanel extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	JMenuBar menuBar;
+	JMenu mnNewMenu;
+	JMenuItem mntmBeedtruiea;
+	JList<?> list;
+	JLabel lblNewLabel;
+	JButton btnNewButton;
+	JComboBox comboBox;
+	JPopupMenu popupMenu;
+	JFileChooser chooser;
+	
 	public Startpanel() {
 		
-		JMenuBar menuBar = new JMenuBar();
+		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu = new JMenu("New menu");
+		mnNewMenu = new JMenu("New menu");
 		menuBar.add(mnNewMenu);
 		
-		JMenuItem mntmBeedtruiea = new JMenuItem("Beedtruiea");
+		mntmBeedtruiea = new JMenuItem("Beedtruiea");
 		mnNewMenu.add(mntmBeedtruiea);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		JList<?> list = new JList();
+		list = new JList();
 		getContentPane().add(list);
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel = new JLabel("New label");
 		getContentPane().add(lblNewLabel);
 		
-		JButton btnNewButton = new JButton("New button");
+		btnNewButton = new JButton("New button");
 		getContentPane().add(btnNewButton);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		getContentPane().add(comboBox);
 		
-		JPopupMenu popupMenu = new JPopupMenu();
+		popupMenu = new JPopupMenu();
 		addPopup(comboBox, popupMenu);
+		
+		chooser = new JFileChooser();
+		getContentPane().add(chooser);
 	}
 
 	/**
@@ -81,5 +98,18 @@ public class Startpanel extends JFrame {
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
+	}
+	
+	public String chooseFile() {
+		String inputPath = "";
+
+		int returnVal = chooser.showOpenDialog(null);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			inputPath = chooser.getSelectedFile().getAbsolutePath();
+		} else {
+			// Exception
+			inputPath = "";
+		}
+		return inputPath;
 	}
 }
