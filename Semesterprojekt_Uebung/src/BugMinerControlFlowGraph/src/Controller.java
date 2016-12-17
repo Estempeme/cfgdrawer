@@ -1,3 +1,6 @@
+package BugMinerControlFlowGraph.src;
+
+
 import java.util.HashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -6,9 +9,9 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public final class Controller {
 
-    private static LinkedBlockingQueue<Edge> inputStream = new LinkedBlockingQueue<>();
+    private static LinkedBlockingQueue<Edge> inputStream = new LinkedBlockingQueue<Edge>();
 
-    private static HashMap<String,MethodGraph> methodGraphs = new HashMap<>();
+    private static HashMap<String,MethodGraph> methodGraphs = new HashMap<String, MethodGraph>();
 
     public static void main(String[] args) {
         simpleTest();

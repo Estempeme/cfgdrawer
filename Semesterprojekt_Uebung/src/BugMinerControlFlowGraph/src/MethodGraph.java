@@ -1,3 +1,5 @@
+package BugMinerControlFlowGraph.src;
+
 import org.jetbrains.annotations.Contract;
 
 import java.util.HashMap;

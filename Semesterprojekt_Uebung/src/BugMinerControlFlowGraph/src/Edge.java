@@ -1,3 +1,5 @@
+package BugMinerControlFlowGraph.src;
+
 // the edges are handed over in a java.util.concurrent.BlockingQueue<Edge>
 // someone creates a queue and gives it to the graph builder and executor
 // in their constructors. When the executor observes that the program

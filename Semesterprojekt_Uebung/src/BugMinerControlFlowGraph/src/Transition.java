@@ -1,3 +1,5 @@
+package BugMinerControlFlowGraph.src;
+
 /**
  * Class that defines a Transition object
  */
