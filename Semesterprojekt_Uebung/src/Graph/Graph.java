@@ -22,13 +22,14 @@ public class Graph {
 	// A pointer to all of the nodes.
 	public Instruction firstinst;
 
+	
 	private String filename = Settings.getFilename(); // name of your output
 														// files
 	private String type = Settings.getType(); // Type of the picture file eg
 												// png, pdf.
 	private String path = Settings.getPath(); // A general path to the working
 												// directory.
-
+	
 	public Graph() {
 		this.firstinst = null;
 	}
