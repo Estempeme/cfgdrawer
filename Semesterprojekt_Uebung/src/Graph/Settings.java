@@ -58,12 +58,12 @@ public class Settings {
 	 * main for testing, set your path, set your filename, set your export type,
 	 * then a graph is drawn
 	 */
-	public static void main(String[] args) {
+	public static void main() {
 
 		setPath(pathJan);
-		// setPath(pathMihaly);
+		setPath(pathMihaly);
 		setPicturePath(picturePathJan);
-		// setPicturePath(picturePathMihaly);
+		setPicturePath(picturePathMihaly);
 
 		// outputfile typ, eg png, pdf, ps
 		// png is displayed with eclips, pdf and ps with external viewer
