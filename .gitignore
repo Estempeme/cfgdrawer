@@ -2,4 +2,5 @@
 *.ps
 *.png
 *.md
-
+*.dot
+*.zip
