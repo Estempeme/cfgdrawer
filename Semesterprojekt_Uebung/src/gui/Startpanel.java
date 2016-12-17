@@ -9,8 +9,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridBagLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -18,6 +22,8 @@ import javax.swing.JComboBox;
 import javax.swing.JPopupMenu;
 
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -34,14 +40,22 @@ public class Startpanel extends JFrame {
 	JMenuBar menuBar;
 	JMenu mnNewMenu;
 	JMenuItem mntmBeedtruiea;
-	JList<?> list;
 	JLabel lblNewLabel;
 	JButton btnNewButton;
-	JComboBox comboBox;
-	JPopupMenu popupMenu;
-	JFileChooser chooser;
+	JButton startButton;
+	ActionListener l;
+	ActionListener l2;
+	JPanel panel1, panel2, panel3;
 	
 	public Startpanel() {
+		
+		
+		panel1 = new JPanel(new GridBagLayout());
+		panel2 = new JPanel(new BorderLayout());
+		panel3 = new JPanel();
+		getContentPane().add(panel1, 0);
+		//getContentPane().add(panel2, 1);
+		//getContentPane().add(panel3, 1);
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -53,23 +67,35 @@ public class Startpanel extends JFrame {
 		mnNewMenu.add(mntmBeedtruiea);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		list = new JList();
-		getContentPane().add(list);
-		
 		lblNewLabel = new JLabel("New label");
 		getContentPane().add(lblNewLabel);
 		
 		btnNewButton = new JButton("New button");
-		getContentPane().add(btnNewButton);
+		Dimension m = new Dimension();
+		m.setSize(75, 25);
+		btnNewButton.setSize(m);
+		panel1.add(btnNewButton);
+		l = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(chooseFile());
+			}
+		};
+		btnNewButton.addActionListener(l);
+		startButton = new JButton("START");
+		Dimension m2 = new Dimension();
+		m2.setSize(75, 25);
+		startButton.setSize(m2);
+		panel1.add(startButton);
+		l2 = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Graph started.");
+			}
+		};
+		startButton.addActionListener(l2);
+
 		
-		comboBox = new JComboBox();
-		getContentPane().add(comboBox);
 		
-		popupMenu = new JPopupMenu();
-		addPopup(comboBox, popupMenu);
 		
-		chooser = new JFileChooser();
-		getContentPane().add(chooser);
 	}
 
 	/**
@@ -77,9 +103,11 @@ public class Startpanel extends JFrame {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		JFrame Startpanel = new Startpanel();
-		
-		Startpanel.setVisible(true);
+		Startpanel startpanel = new Startpanel();
+		startpanel.setSize(500, 300);
+		startpanel.setLocationRelativeTo(null);
+		startpanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		startpanel.setVisible(true);
 	}
 
 	private static void addPopup(Component component, final JPopupMenu popup) {
@@ -101,6 +129,8 @@ public class Startpanel extends JFrame {
 	}
 	
 	public String chooseFile() {
+		JFileChooser chooser = new JFileChooser();
+		getContentPane().add(chooser);
 		String inputPath = "";
 
 		int returnVal = chooser.showOpenDialog(null);
