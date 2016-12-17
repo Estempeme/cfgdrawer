@@ -41,50 +41,45 @@ public class Startpanel extends JFrame {
 	JMenu mnNewMenu;
 	JMenuItem mntmBeedtruiea;
 	JLabel lblNewLabel;
-	JButton btnNewButton;
+	JButton btnChooseFile;
 	JButton startButton;
 	ActionListener l;
 	ActionListener l2;
 	JPanel panel1, panel2, panel3;
 	
 	public Startpanel() {
-		
-		
+				
 		panel1 = new JPanel(new GridBagLayout());
-		panel2 = new JPanel(new BorderLayout());
-		panel3 = new JPanel();
-		getContentPane().add(panel1, 0);
+
+		
 		//getContentPane().add(panel2, 1);
 		//getContentPane().add(panel3, 1);
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		mnNewMenu = new JMenu("New menu");
+		mnNewMenu = new JMenu("Configure");
 		menuBar.add(mnNewMenu);
 		
-		mntmBeedtruiea = new JMenuItem("Beedtruiea");
+		mntmBeedtruiea = new JMenuItem("Select");
 		mnNewMenu.add(mntmBeedtruiea);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		lblNewLabel = new JLabel("New label");
-		getContentPane().add(lblNewLabel);
+		//lblNewLabel = new JLabel("New label");
+		//getContentPane().add(lblNewLabel);
 		
-		btnNewButton = new JButton("New button");
-		Dimension m = new Dimension();
-		m.setSize(75, 25);
-		btnNewButton.setSize(m);
-		panel1.add(btnNewButton);
+		btnChooseFile = new JButton("Choose file");
+
+		panel1.add(btnChooseFile);
 		l = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(chooseFile());
 			}
 		};
-		btnNewButton.addActionListener(l);
+		
+		btnChooseFile.addActionListener(l);
 		startButton = new JButton("START");
-		Dimension m2 = new Dimension();
-		m2.setSize(75, 25);
-		startButton.setSize(m2);
+
 		panel1.add(startButton);
 		l2 = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -93,7 +88,7 @@ public class Startpanel extends JFrame {
 		};
 		startButton.addActionListener(l2);
 
-		
+		getContentPane().add(panel1, 0);
 		
 		
 	}
