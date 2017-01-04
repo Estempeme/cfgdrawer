@@ -96,7 +96,7 @@ public class Startpanel extends JFrame {
 	    
 	    ActionListener listenerSelectOutputType = new ActionListener(){
 	    	public void actionPerformed(ActionEvent e){
-	    		System.out.println("Fileformat set to: ");
+	    		System.out.println("Fileformat set to: " + e.getActionCommand());
 	    	}
 	    }; 
 	    
@@ -144,13 +144,18 @@ public class Startpanel extends JFrame {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		createAndStartPanel();
+	}*/
+	
+	public void createAndStartPanel() {
 		Startpanel startpanel = new Startpanel();
 		startpanel.setSize(500, 300);
 		startpanel.setLocationRelativeTo(null);
-		startpanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		startpanel.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		startpanel.setVisible(true);
+		
 	}
 
 	private static void addPopup(Component component, final JPopupMenu popup) {

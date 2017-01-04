@@ -71,9 +71,9 @@ public class CreateGraph {
 	public static void main(String[] args) {
 		
 		
-		pictureToScreen(graphToImageAndSave(incomingGraph(25, 4)));
+		pictureToScreen(graphToImageAndSave(incomingGraph(8, 3)));
 		
-		//readAndPutWithJFrame(1);
+		//readAndPutWithJFrame(0);
 		// start();
 		// start2();
 		// ciklikus();
@@ -215,7 +215,7 @@ public class CreateGraph {
 	// plan: make an other function that reads from the file given as a
 	// parameter (?)
 	private static GraphViz readFromFile() {
-		String input = "C:" + eigenerPfad + "/SPgyak/simple.dot";
+		String input = "C:" + eigenerPfad + "/cfgdrawer/Semesterprojekt_Uebung/simple.dot";
 		GraphViz gv = new GraphViz();
 		gv.readSource(input);
 		System.out.println(gv.getDotSource());
